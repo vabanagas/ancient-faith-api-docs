@@ -9,26 +9,50 @@ schemes:
  - https
 
 paths:
-  /feed:
-    get:
-      description: Return a feed for displaying featured content.
-      responses:
-        200:
-          description: Success
   /streams:
     get:
-      description: Return a list of all streams
+      description: Return a list of all streams including stream URLs
       responses:
         200:
           description: Success
   /streams/${stream_id}:
     get:
-      description: Return details of a stream with now playing info and recently played info.
+      description: Return details of a stream including now playing info and recently played info.
       parameters:
         - name: stream_id
           in: path 
           type: string
           required: true 
+      responses:
+        200:
+          description: Success
+  /recommendations:
+    get:
+      description: Return a list of content sections that can include recommended podcasts, books, blogs, or videos.
+      responses:
+        200:
+          description: Success
+  /recommendations/podcasts:
+    get:
+      description: Return recommended podcasts.
+      responses:
+        200:
+          description: Success
+  /recommendations/books:
+    get:
+      description: Return recommended books.
+      responses:
+        200:
+          description: Success
+  /recommendations/blogs:
+    get:
+      description: Return recommended blogs.
+      responses:
+        200:
+          description: Success
+  /recommendations/videos:
+    get:
+      description: Return recommended videos.
       responses:
         200:
           description: Success
@@ -73,6 +97,18 @@ paths:
       responses:
         200:
           description: Success
+  /daily_bread:
+    get:
+      description: Return a list of daily bread podcast episodes
+      responses:
+        200:
+          description: Success
+  /categories:
+    get:
+      description: Return a list of all podcast categories.
+      responses:
+        200:
+          description: Success
   /podcasts:
     get:
       description: Return a paginated list of all podcasts
@@ -92,6 +128,10 @@ paths:
           in: query
           type: string
           description: Specifies the author of the podcasts to be displayed.
+        - name: category_id
+          in: query
+          type: string
+          description: Specifies the category of the podcasts to be displayed.
       responses:
         200:
           description: Success
@@ -152,6 +192,10 @@ paths:
           in: query
           type: integer
           description: Specifies the page number of the items to be displayed
+        - name: author_id
+          in: query
+          type: string
+          description: Specifies the author of the podcasts to be displayed.
       responses:
         200:
           description: Success
@@ -160,6 +204,36 @@ paths:
       description: Return details of a blog
       parameters:
         - name: blog_id
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: Success
+  /videos:
+    get:
+      description: Return a paginated list of all videos podcasts or livestreams
+      parameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Limits the number of items.
+        - name: offset
+          in: query
+          type: integer
+          description: Specifies the page number of the items to be displayed
+        - name: author_id
+          in: query
+          type: string
+          description: Specifies the author of the podcasts to be displayed.
+      responses:
+        200:
+          description: Success
+  /videos/${video_id}:
+    get:
+      description: Return details of a video podcast or livestream
+      parameters:
+        - name: video_id
           in: path
           type: string
           required: true
